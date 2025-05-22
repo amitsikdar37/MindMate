@@ -1,3 +1,5 @@
+import { BACKEND_URL } from "./config";
+
 document.addEventListener('DOMContentLoaded', function() {
     // Navigation functionality
     const navItems = document.querySelectorAll('.nav-item');
@@ -47,7 +49,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
         try {
             // Call Flask backend
-            const response = await fetch('http://localhost:5000/api/chat/', {
+            const response = await fetch(`${BACKEND_URL}/api/chat/`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
