@@ -142,8 +142,19 @@
                     <div class="mood-history">
                         <h3>Your Mood History</h3>
                         <table class="mood-table">
-                            <!-- Table header and body -->
+                            <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Time</th>
+                                    <th>Mood</th>
+                                    <th>Notes</th>
+                                </tr>
+                            </thead>
+                            <tbody id="mood-history-table">
+                                <!-- Mood entries will be added here dynamically -->
+                            </tbody>
                         </table>
+
                     </div>
                 </div>
             </section>
