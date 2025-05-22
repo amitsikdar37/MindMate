@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MindMate – AI Powered Mental Health Companion</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Nunito+Sans:wght@300;400;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="app-container">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+            <div class="logo-container">
+                <img src="logo.png" alt="MindMate Logo" class="sidebar-logo">
+                <h1 class="logo">MindMate</h1>
+            </div>
+
+            <nav class="nav-menu">
+                <ul>
+                    <li class="nav-item active" data-page="home">
+                        <svg class="nav-icon" viewBox="0 0 24 24">
+                            <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"></path>
+                        </svg>
+                        <span>Home</span>
+                    </li>
+                    <li class="nav-item" data-page="chat">
+                        <svg class="nav-icon" viewBox="0 0 24 24">
+                            <path
+                                d="M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-2 12H6v-2h12v2zm0-3H6V9h12v2zm0-3H6V6h12v2z">
+                            </path>
+                        </svg>
+                        <span>Chat</span>
+                    </li>
+                    <li class="nav-item" data-page="mood-tracker">
+                        <svg class="nav-icon" viewBox="0 0 24 24">
+                            <path
+                                d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm3.5-9c.83 0 1.5-.67 1.5-1.5S16.33 8 15.5 8 14 8.67 14 9.5s.67 1.5 1.5 1.5zm-7 0c.83 0 1.5-.67 1.5-1.5S9.33 8 8.5 8 7 8.67 7 9.5 7.67 11 8.5 11zm3.5 6.5c2.33 0 4.31-1.46 5.11-3.5H6.89c.8 2.04 2.78 3.5 5.11 3.5z">
+                            </path>
+                        </svg>
+                        <span>Mood Tracker</span>
+                    </li>
+                    <li class="nav-item" data-page="journal">
+                        <svg class="nav-icon" viewBox="0 0 24 24">
+                            <path
+                                d="M18 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm0 18H6V4h2v8l2.5-1.5L13 12V4h5v16z">
+                            </path>
+                        </svg>
+                        <span>Journal</span>
+                    </li>
+                </ul>
+
+            </nav>
+            <div class="sidebar-footer">
+                <button class="settings-btn">
+                    <svg class="settings-icon" viewBox="0 0 24 24">
+                        <path
+                            d="M19.14 12.94c.04-.3.06-.61.06-.94 0-.32-.02-.64-.07-.94l2.03-1.58c.18-.14.23-.41.12-.61l-1.92-3.32c-.12-.22-.37-.29-.59-.22l-2.39.96c-.5-.38-1.03-.7-1.62-.94l-.36-2.54c-.04-.24-.24-.41-.48-.41h-3.84c-.24 0-.43.17-.47.41l-.36 2.54c-.59.24-1.13.57-1.62.94l-2.39-.96c-.22-.08-.47 0-.59.22L2.74 8.87c-.12.21-.08.47.12.61l2.03 1.58c-.05.3-.09.63-.09.94s.02.64.07.94l-2.03 1.58c-.18.14-.23.41-.12.61l1.92 3.32c.12.22.37.29.59.22l2.39-.96c.5.38 1.03.7 1.62.94l.36 2.54c.05.24.24.41.48.41h3.84c.24 0 .44-.17.47-.41l.36-2.54c.59-.24 1.13-.56 1.62-.94l2.39.96c.22.08.47 0 .59-.22l1.92-3.32c.12-.22.07-.47-.12-.61l-2.01-1.58zM12 15.6c-1.98 0-3.6-1.62-3.6-3.6s1.62-3.6 3.6-3.6 3.6 1.62 3.6 3.6-1.62 3.6-3.6 3.6z">
+                        </path>
+                    </svg>
+                </button>
+            </div>
+        </aside>
+
+        </aside>
+
+        <!-- Main Content Area -->
+        <main class="main-content">
+            <!-- Home Page -->
+            <section id="home" class="page active">
+                <div class="hero-section">
+                    <h2>Welcome to MindMate</h2>
+                    <p>Your AI companion for mental wellness and emotional support.</p>
+                    <button class="cta-button">Start Chatting</button>
+                </div>
+                <div class="features-section">
+                    <div class="feature-card">
+                        <div class="feature-icon">💬</div>
+                        <h3>AI Chat Support</h3>
+                        <p>Talk to MindMate anytime you need emotional support or guidance.</p>
+                    </div>
+                    <!-- More feature cards -->
+                </div>
+            </section>
+
+            </section>
+
+            <!-- Chat Page -->
+            <section id="chat" class="page">
+                <div class="chat-container">
+                    <div class="chat-messages" id="chat-messages">
+                        <div class="message ai-message">
+                            <div class="message-content">
+                                <p>Hello! I'm MindMate, your AI mental health companion. How are you feeling today?</p>
+                            </div>
+                            <div class="message-time"></div>
+                        </div>
+                        <!-- More messages will be added dynamically -->
+                    </div>
+                    <div class="chat-input-container">
+                        <textarea id="chat-input" placeholder="Type your message here..."></textarea>
+                        <button id="send-message" class="send-button">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"></path>
+                            </svg>
+                        </button>
+                    </div>
+                </div>
+            </section>
+
+            </section>
+
+            <!-- Mood Tracker Page -->
+            <section id="mood-tracker" class="page">
+                <div class="mood-tracker-container">
+                    <h2>How are you feeling today?</h2>
+                    <div class="mood-buttons">
+                        <button class="mood-btn" data-mood="happy">😀<span>Happy</span></button>
+                        <button class="mood-btn" data-mood="neutral">😐<span>Neutral</span></button>
+                        <button class="mood-btn" data-mood="sad">😔<span>Sad</span></button>
+                        <button class="mood-btn" data-mood="crying">😢<span>Crying</span></button>
+                        <button class="mood-btn" data-mood="angry">😠<span>Angry</span></button>
+                        <button class="mood-btn" data-mood="anxious">😰<span>Anxious</span></button>
+                        <button class="mood-btn" data-mood="excited">🤩<span>Excited</span></button>
+                        <button class="mood-btn" data-mood="tired">😴<span>Tired</span></button>
+
+                    </div>
+                    <div class="mood-note-container">
+                        <textarea id="mood-note"
+                            placeholder="Add a note about how you're feeling (optional)"></textarea>
+                        <button id="save-mood" class="primary-button">Save</button>
+                    </div>
+                    <div class="mood-history">
+                        <h3>Your Mood History</h3>
+                        <table class="mood-table">
+                            <!-- Table header and body -->
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            </section>
+
+            <!-- Journal Page -->
+            <section id="journal" class="page">
+                <div class="journal-container">
+                    <h2>Journal</h2>
+                    <div class="new-entry-container">
+                        <h3>New Entry</h3>
+                        <input type="text" id="journal-title" placeholder="Entry title">
+                        <textarea id="journal-content" placeholder="Write your thoughts here..."></textarea>
+                        <button id="save-journal" class="primary-button">Save Entry</button>
+                    </div>
+                    <div class="journal-entries">
+                        <h3>Previous Entries</h3>
+                        <div id="journal-list" class="journal-list">
+                            <!-- Journal entries will be added dynamically -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            </section>
+        </main>
+    </div>
+
+    <footer class="footer">
+        <p>© 2025 Team ByteWise - MindMate AI Powered Mental Health Companion</p>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
