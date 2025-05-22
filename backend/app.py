@@ -6,6 +6,10 @@ from routes.mood_routes import mood_bp
 app = Flask(__name__)
 CORS(app)
 
+@app.route('/')
+def home():
+    return 'Welcome to my Flask app!'
+
 # Register Blueprints
 app.register_blueprint(chat_bp, url_prefix="/api/chat")
 app.register_blueprint(mood_bp, url_prefix="/api/mood")
