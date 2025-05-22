@@ -38,19 +38,37 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     
-    function sendMessage() {
+    async function sendMessage() {
         const message = chatInput.value.trim();
-        if (message) {
-            // Add user message to chat
-            addMessageToChat('user', message);
-            
-            // Clear input
-            chatInput.value = '';
-            
-            // Simulate AI response (would connect to backend in real app)
-            setTimeout(() => {
-                simulateAIResponse(message);
-            }, 1000);
+        if (!message) return;
+
+        addMessageToChat('user', message);
+        chatInput.value = '';
+
+        try {
+            // Call Flask backend
+            const response = await fetch('http://localhost:5000/api/chat/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ message: message })
+            });
+
+            if (!response.ok) {
+                throw new Error('Server error');
+            }
+
+            const data = await response.json();
+            const structuredReply = marked.parse(data.reply); 
+            const reply = structuredReply || "Sorry, I couldn't understand that.";
+
+            // Add AI reply to chat
+            addMessageToChat('ai', reply);
+
+        } catch (error) {
+            console.error('Error:', error);
+            addMessageToChat('ai', "Oops! Something went wrong while getting the response.");
         }
     }
     
