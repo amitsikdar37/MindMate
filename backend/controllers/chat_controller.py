@@ -1,8 +1,13 @@
 import os
 import requests
 from flask import jsonify
+from dotenv import load_dotenv
+
+load_dotenv()  
 
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
+
+print("Loaded Gemini API key:", GEMINI_API_KEY)
 
 def get_gemini_reply(user_message):
     url = "https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent"

@@ -148,59 +148,61 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     function renderMoodHistory() {
-        if (!moodHistoryTable) return;
+    if (!moodHistoryTable) return;
 
-        moodHistoryTable.innerHTML = '';
+    moodHistoryTable.innerHTML = '';
 
-        if (moodHistory.length === 0) {
-            const emptyRow = document.createElement('tr');
-            emptyRow.innerHTML = '<td colspan="5" class="empty-history">No mood entries yet</td>';
-            moodHistoryTable.appendChild(emptyRow);
-            return;
-        }
-
-        // Display most recent 10 entries
-        const recentEntries = moodHistory.slice(0, 10);
-
-        recentEntries.forEach((entry, index) => {
-            const row = document.createElement('tr');
-
-            let moodEmoji = '😐';
-            switch (entry.mood) {
-                case 'happy': moodEmoji = '😀'; break;
-                case 'neutral': moodEmoji = '😐'; break;
-                case 'sad': moodEmoji = '😔'; break;
-                case 'crying': moodEmoji = '😢'; break;
-                case 'angry': moodEmoji = '😠'; break;
-                case 'anxious': moodEmoji = '😰'; break;
-                case 'excited': moodEmoji = '🤩'; break;
-                case 'tired': moodEmoji = '😴'; break;
-            }
-
-            row.innerHTML = `
-                <td>${entry.date}</td>
-                <td>${entry.time}</td>
-                <td>${moodEmoji} ${entry.mood}</td>
-                <td>${entry.note || '-'}</td>
-                <td>
-                    <button class="mood-delete-btn" data-index="${index}">Delete</button>
-                </td>
-            `;
-
-            moodHistoryTable.appendChild(row);
-        });
-
-        // Add event listeners for delete buttons
-        document.querySelectorAll('.mood-delete-btn').forEach(btn => {
-            btn.addEventListener('click', function () {
-                const idx = parseInt(this.getAttribute('data-index'));
-                moodHistory.splice(idx, 1);
-                localStorage.setItem('moodHistory', JSON.stringify(moodHistory));
-                renderMoodHistory();
-            });
-        });
+    if (moodHistory.length === 0) {
+        const emptyRow = document.createElement('tr');
+        emptyRow.innerHTML = '<td colspan="5" class="empty-history">No mood entries yet</td>';
+        moodHistoryTable.appendChild(emptyRow);
+        return;
     }
 
+    // Display most recent 10 entries
+    const recentEntries = moodHistory.slice(0, 10);
+
+    recentEntries.forEach((entry, index) => {
+        const row = document.createElement('tr');
+
+        // Get emoji for mood
+        let moodEmoji = '😐';
+        switch (entry.mood) {
+            case 'happy': moodEmoji = '😀'; break;
+            case 'neutral': moodEmoji = '😐'; break;
+            case 'sad': moodEmoji = '😔'; break;
+            case 'crying': moodEmoji = '😢'; break;
+            case 'angry': moodEmoji = '😠'; break;
+            case 'anxious': moodEmoji = '😰'; break;
+            case 'excited': moodEmoji = '🤩'; break;
+            case 'tired': moodEmoji = '😴'; break;
+        }
+
+        row.innerHTML = `
+            <td>${entry.date}</td>
+            <td>${entry.time}</td>
+            <td>${moodEmoji} ${entry.mood}</td>
+            <td>${entry.note || '-'}</td>
+            <td>
+                <button class="mood-delete-btn" data-index="${index}">Delete</button>
+            </td>
+        `;
+
+        moodHistoryTable.appendChild(row);
+    });
+
+    // Add event listeners for delete buttons
+    document.querySelectorAll('.mood-delete-btn').forEach(btn => {
+        btn.addEventListener('click', function () {
+            const idx = parseInt(this.getAttribute('data-index'));
+            moodHistory.splice(idx, 1);
+            localStorage.setItem('moodHistory', JSON.stringify(moodHistory));
+            renderMoodHistory();
+        });
+    });
+}
+
+    
     // Journal functionality
     const journalTitle = document.getElementById('journal-title');
     const journalContent = document.getElementById('journal-content');
