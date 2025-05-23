@@ -15,7 +15,7 @@ def get_gemini_reply(user_message):
         "You speak like a compassionate human who listens actively. "
         "Offer comfort, encouragement, and thoughtful suggestions. "
         "Avoid medical advice and instead guide the user gently with empathy. "
-        "Always validate their feelings first before offering help."
+        "Remember the context user and chat accordingly keeping in mind thier previous chat question or feelings."
     )
 
     payload = {
