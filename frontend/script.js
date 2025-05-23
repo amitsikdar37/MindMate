@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', function () {
         if (document.querySelector('.typing-indicator')) return;
         const typingDiv = document.createElement('div');
         typingDiv.className = 'message ai-message typing-indicator';
-        typingDiv.innerHTML = `<div class="message-content"><em>Gemini is helping<span class="dot-1">.</span><span class="dot-2">.</span><span class="dot-3">.</span></em></div>`;
+        typingDiv.innerHTML = `<div class="message-content"><em>MindMate is helping<span class="dot-1">.</span><span class="dot-2">.</span><span class="dot-3">.</span></em></div>`;
         chatMessages.appendChild(typingDiv);
         chatMessages.scrollTop = chatMessages.scrollHeight;
     }
