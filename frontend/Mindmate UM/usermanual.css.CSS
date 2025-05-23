@@ -1,0 +1,95 @@
+/* style.css */
+
+/* style.css */
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #F0FDF4; /* Light green background for the whole page */
+    color: #333333; /* Dark grey for text for readability */
+    line-height: 1.6;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center main content blocks */
+    padding: 20px;
+}
+
+h2, h3 {
+    color: #1B5E20; /* Darker, rich green for headings - more emphasis */
+    text-align: center;
+    margin-top: 40px;
+    margin-bottom: 15px;
+}
+
+h2 {
+    font-size: 2em;
+}
+
+h3 {
+    font-size: 1.5em;
+    margin-top: 30px;
+    margin-bottom: 10px;
+}
+
+.description,
+.AI,
+.guide {
+    background-color: #FFFFFF; /* White background for content blocks */
+    padding: 25px;
+    margin: 20px 0; /* Vertical spacing */
+    border-radius: 12px; /* Softer rounded corners */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Slightly more pronounced shadow to pop on green bg */
+    max-width: 800px; /* Max width for readability on larger screens */
+    width: 90%; /* Responsive width */
+    text-align: left; /* Default text alignment for content */
+}
+
+/* Center text for description and AI sections specifically if preferred */
+.description,
+.AI {
+    text-align: center;
+}
+
+
+.UI,
+.chat {
+    margin-top: 20px;
+    margin-bottom: 30px;
+    text-align: center; /* Center the image within these divs */
+    width: 100%;
+}
+
+img {
+    display: block; /* Allows for margin auto centering */
+    margin-left: auto;
+    margin-right: auto;
+    max-width: 100%; /* Make images responsive */
+    height: auto; /* Maintain aspect ratio */
+    border-radius: 10px; /* Rounded corners for images */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1); /* Subtle shadow for images */
+    margin-top: 15px; /* Space above images */
+    margin-bottom: 15px; /* Space below images */
+}
+
+/* Specific styling for the image inside the guide, if needed, though general img rules should cover it */
+.guide img {
+    margin-top: 20px; /* Add some extra space for the image within the guide */
+}
+
+.guide {
+    text-align: left; /* Guide steps are better left-aligned for readability */
+    line-height: 1.8; /* More space between lines for guide steps */
+}
+
+/* Ensure the content within .guide like "1. Click..." is spaced out nicely */
+.guide br {
+    display: block;
+    margin-bottom: 0.5em; /* Space after each line break in the guide */
+}
+
+/* To ensure the main headings are also within the flow */
+body > h2, body > h3 {
+    width: 90%;
+    max-width: 800px;
+}
