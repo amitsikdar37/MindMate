@@ -42,33 +42,45 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     async function sendMessage() {
-        const message = chatInput.value.trim();
-        if (!message) return;
+    const message = chatInput.value.trim();
+    if (!message) return;
 
-        addMessageToChat('user', message);
-        chatInput.value = '';
+    addMessageToChat('user', message);
+    chatInput.value = '';
 
-        // Placeholder for backend call:
-        // Uncomment and configure if you have a backend
-        
-        try {
-            const response = await fetch(`${BACKEND_URL}/api/chat/`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ message: message })
-            });
-            if (!response.ok) throw new Error('Server error');
-            const data = await response.json();
-            const reply = data.reply || "Sorry, I couldn't understand that.";
-            addMessageToChat('ai', reply);
-        } catch (error) {
-            console.error('Error:', error);
-            addMessageToChat('ai', "Oops! Something went wrong while getting the response.");
-        }
+    // Show typing indicator
+    showTypingIndicator();
+
+    // If you have a backend, use this block:
+    try {
+        const response = await fetch(`${BACKEND_URL}/api/chat/`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ message: message })
+        });
+        hideTypingIndicator();
+        if (!response.ok) throw new Error('Server error');
+        const data = await response.json();
+        const reply = data.reply || "Sorry, I couldn't understand that.";
+        addMessageToChat('ai', reply);
+    } catch (error) {
+        hideTypingIndicator();
+        console.error('Error:', error);
+        addMessageToChat('ai', "Oops! Something went wrong while getting the response.");
+    }
+
+    // If you do NOT have a backend yet, comment out the above try/catch and use this instead:
+    /*
+    setTimeout(() => {
+        hideTypingIndicator();
+        simulateAIResponse(message);
+    }, 700);
+    */
+}
+
         
         // For now, simulate AI response
         setTimeout(() => simulateAIResponse(message), 700);
-    }
 
     function addMessageToChat(sender, text) {
         const time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
