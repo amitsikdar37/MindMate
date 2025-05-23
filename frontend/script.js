@@ -65,7 +65,8 @@ document.addEventListener('DOMContentLoaded', function () {
             hideTypingIndicator();
             if (!response.ok) throw new Error('Server error');
             const data = await response.json();
-            const reply = data.reply || "Sorry, I couldn't understand that.";
+            const structuredReply = marked.parse(data.reply);
+            const reply = structuredReply || "Sorry, I couldn't understand that.";
             addMessageToChat('ai', reply);
         } catch (error) {
             hideTypingIndicator();
