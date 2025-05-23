@@ -1,4 +1,3 @@
-// If you have a BACKEND_URL, uncomment the next line and set it
 import { BACKEND_URL } from "./config.js";
 
 document.addEventListener('DOMContentLoaded', function () {
@@ -6,16 +5,11 @@ document.addEventListener('DOMContentLoaded', function () {
     const navItems = document.querySelectorAll('.nav-item');
     const pages = document.querySelectorAll('.page');
 
-    // Handle navigation clicks
     navItems.forEach(item => {
         item.addEventListener('click', function () {
             const pageId = this.getAttribute('data-page');
-
-            // Update active nav item
             navItems.forEach(nav => nav.classList.remove('active'));
             this.classList.add('active');
-
-            // Show selected page, hide others
             pages.forEach(page => {
                 page.classList.remove('active');
                 if (page.id === pageId) {
@@ -30,10 +24,8 @@ document.addEventListener('DOMContentLoaded', function () {
     const sendButton = document.getElementById('send-message');
     const chatMessages = document.getElementById('chat-messages');
 
-    // Send message when button is clicked
     sendButton.addEventListener('click', sendMessage);
 
-    // Send message when Enter key is pressed (but allow Shift+Enter for new lines)
     chatInput.addEventListener('keydown', function (e) {
         if (e.key === 'Enter' && !e.shiftKey) {
             e.preventDefault();
@@ -41,46 +33,46 @@ document.addEventListener('DOMContentLoaded', function () {
         }
     });
 
-    async function sendMessage() {
-    const message = chatInput.value.trim();
-    if (!message) return;
-
-    addMessageToChat('user', message);
-    chatInput.value = '';
-
-    // Show typing indicator
-    showTypingIndicator();
-
-    // If you have a backend, use this block:
-    try {
-        const response = await fetch(`${BACKEND_URL}/api/chat/`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ message: message })
-        });
-        hideTypingIndicator();
-        if (!response.ok) throw new Error('Server error');
-        const data = await response.json();
-        const reply = data.reply || "Sorry, I couldn't understand that.";
-        addMessageToChat('ai', reply);
-    } catch (error) {
-        hideTypingIndicator();
-        console.error('Error:', error);
-        addMessageToChat('ai', "Oops! Something went wrong while getting the response.");
+    function showTypingIndicator() {
+        if (document.querySelector('.typing-indicator')) return;
+        const typingDiv = document.createElement('div');
+        typingDiv.className = 'message ai-message typing-indicator';
+        typingDiv.innerHTML = `<div class="message-content"><em>Gemini is helping<span class="dot-1">.</span><span class="dot-2">.</span><span class="dot-3">.</span></em></div>`;
+        chatMessages.appendChild(typingDiv);
+        chatMessages.scrollTop = chatMessages.scrollHeight;
     }
 
-    // If you do NOT have a backend yet, comment out the above try/catch and use this instead:
-    /*
-    setTimeout(() => {
-        hideTypingIndicator();
-        simulateAIResponse(message);
-    }, 700);
-    */
-}
+    function hideTypingIndicator() {
+        const typingDiv = document.querySelector('.typing-indicator');
+        if (typingDiv) typingDiv.remove();
+    }
 
-        
-        // For now, simulate AI response
-        setTimeout(() => simulateAIResponse(message), 700);
+    async function sendMessage() {
+        const message = chatInput.value.trim();
+        if (!message) return;
+
+        addMessageToChat('user', message);
+        chatInput.value = '';
+
+        showTypingIndicator();
+
+        try {
+            const response = await fetch(`${BACKEND_URL}/api/chat/`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ message: message })
+            });
+            hideTypingIndicator();
+            if (!response.ok) throw new Error('Server error');
+            const data = await response.json();
+            const reply = data.reply || "Sorry, I couldn't understand that.";
+            addMessageToChat('ai', reply);
+        } catch (error) {
+            hideTypingIndicator();
+            console.error('Error:', error);
+            addMessageToChat('ai', "Oops! Something went wrong while getting the response.");
+        }
+    }
 
     function addMessageToChat(sender, text) {
         const time = new Date().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
@@ -98,20 +90,6 @@ document.addEventListener('DOMContentLoaded', function () {
         chatMessages.scrollTop = chatMessages.scrollHeight;
     }
 
-    function simulateAIResponse(userMessage) {
-        let response = "I understand how you feel. Would you like to talk more about that?";
-        if (userMessage.toLowerCase().includes('sad') || userMessage.toLowerCase().includes('depressed')) {
-            response = "I'm sorry to hear you're feeling down. Remember that it's okay to not be okay sometimes. Would you like to explore some coping strategies?";
-        } else if (userMessage.toLowerCase().includes('happy') || userMessage.toLowerCase().includes('good')) {
-            response = "I'm glad to hear you're doing well! What's been contributing to your positive mood?";
-        } else if (userMessage.toLowerCase().includes('anxious') || userMessage.toLowerCase().includes('worried')) {
-            response = "Anxiety can be challenging. Have you tried any relaxation techniques like deep breathing or mindfulness?";
-        } else if (userMessage.toLowerCase().includes('hello') || userMessage.toLowerCase().includes('hi')) {
-            response = "Hello! How are you feeling today?";
-        }
-        addMessageToChat('ai', response);
-    }
-
     // Mood Tracker functionality
     const moodButtons = document.querySelectorAll('.mood-btn');
     const moodNote = document.getElementById('mood-note');
@@ -122,7 +100,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
     renderMoodHistory();
 
-    // Mood button selection
     let selectedMood = null;
     moodButtons.forEach(button => {
         button.addEventListener('click', function () {
@@ -132,7 +109,6 @@ document.addEventListener('DOMContentLoaded', function () {
         });
     });
 
-    // Save mood entry
     saveMoodButton.addEventListener('click', function () {
         if (selectedMood) {
             const note = moodNote.value.trim();
@@ -160,61 +136,56 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     function renderMoodHistory() {
-    if (!moodHistoryTable) return;
+        if (!moodHistoryTable) return;
 
-    moodHistoryTable.innerHTML = '';
+        moodHistoryTable.innerHTML = '';
 
-    if (moodHistory.length === 0) {
-        const emptyRow = document.createElement('tr');
-        emptyRow.innerHTML = '<td colspan="5" class="empty-history">No mood entries yet</td>';
-        moodHistoryTable.appendChild(emptyRow);
-        return;
-    }
-
-    // Display most recent 10 entries
-    const recentEntries = moodHistory.slice(0, 10);
-
-    recentEntries.forEach((entry, index) => {
-        const row = document.createElement('tr');
-
-        // Get emoji for mood
-        let moodEmoji = '😐';
-        switch (entry.mood) {
-            case 'happy': moodEmoji = '😀'; break;
-            case 'neutral': moodEmoji = '😐'; break;
-            case 'sad': moodEmoji = '😔'; break;
-            case 'crying': moodEmoji = '😢'; break;
-            case 'angry': moodEmoji = '😠'; break;
-            case 'anxious': moodEmoji = '😰'; break;
-            case 'excited': moodEmoji = '🤩'; break;
-            case 'tired': moodEmoji = '😴'; break;
+        if (moodHistory.length === 0) {
+            const emptyRow = document.createElement('tr');
+            emptyRow.innerHTML = '<td colspan="5" class="empty-history">No mood entries yet</td>';
+            moodHistoryTable.appendChild(emptyRow);
+            return;
         }
 
-        row.innerHTML = `
-            <td>${entry.date}</td>
-            <td>${entry.time}</td>
-            <td>${moodEmoji} ${entry.mood}</td>
-            <td>${entry.note || '-'}</td>
-            <td>
-                <button class="mood-delete-btn" data-index="${index}">Delete</button>
-            </td>
-        `;
+        const recentEntries = moodHistory.slice(0, 10);
 
-        moodHistoryTable.appendChild(row);
-    });
+        recentEntries.forEach((entry, index) => {
+            const row = document.createElement('tr');
+            let moodEmoji = '😐';
+            switch (entry.mood) {
+                case 'happy': moodEmoji = '😀'; break;
+                case 'neutral': moodEmoji = '😐'; break;
+                case 'sad': moodEmoji = '😔'; break;
+                case 'crying': moodEmoji = '😢'; break;
+                case 'angry': moodEmoji = '😠'; break;
+                case 'anxious': moodEmoji = '😰'; break;
+                case 'excited': moodEmoji = '🤩'; break;
+                case 'tired': moodEmoji = '😴'; break;
+            }
 
-    // Add event listeners for delete buttons
-    document.querySelectorAll('.mood-delete-btn').forEach(btn => {
-        btn.addEventListener('click', function () {
-            const idx = parseInt(this.getAttribute('data-index'));
-            moodHistory.splice(idx, 1);
-            localStorage.setItem('moodHistory', JSON.stringify(moodHistory));
-            renderMoodHistory();
+            row.innerHTML = `
+                <td>${entry.date}</td>
+                <td>${entry.time}</td>
+                <td>${moodEmoji} ${entry.mood}</td>
+                <td>${entry.note || '-'}</td>
+                <td>
+                    <button class="mood-delete-btn" data-index="${index}">Delete</button>
+                </td>
+            `;
+
+            moodHistoryTable.appendChild(row);
         });
-    });
-}
 
-    
+        document.querySelectorAll('.mood-delete-btn').forEach(btn => {
+            btn.addEventListener('click', function () {
+                const idx = parseInt(this.getAttribute('data-index'));
+                moodHistory.splice(idx, 1);
+                localStorage.setItem('moodHistory', JSON.stringify(moodHistory));
+                renderMoodHistory();
+            });
+        });
+    }
+
     // Journal functionality
     const journalTitle = document.getElementById('journal-title');
     const journalContent = document.getElementById('journal-content');
@@ -281,7 +252,6 @@ document.addEventListener('DOMContentLoaded', function () {
             journalList.appendChild(entryDiv);
         });
 
-        // Add event listeners to view/delete buttons
         document.querySelectorAll('.journal-view-btn').forEach(button => {
             button.addEventListener('click', function () {
                 const id = parseInt(this.getAttribute('data-id'));
